@@ -12,7 +12,8 @@ public class MakeGraph extends Application {
     @Override public void start(Stage stage) {
         double x[] = ErrorsFunktion.allX;
         double y[] = ErrorsFunktion.allY;
-        ArrayList<Double> newY = ErrorsFunktion.newAllY;
+        ArrayList<Double> newY1 = ErrorsFunktion.newAllY;
+        ArrayList<Double> newY2 = AccurateErrorsFunktion.newAllY;
 
         stage.setTitle("Line Chart Sample");
         //defining the axes
@@ -20,8 +21,7 @@ public class MakeGraph extends Application {
         final NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("X");
         //creating the chart
-        final LineChart<Number,Number> lineChart =
-                new LineChart<Number,Number>(xAxis,yAxis);
+        final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
 
         lineChart.setTitle("Метод прямого поиска");
         //defining a series
@@ -32,14 +32,22 @@ public class MakeGraph extends Application {
             series.getData().add(new XYChart.Data(x[i], y[i]));
         }
 
-        XYChart.Series newSeries = new XYChart.Series();
-        newSeries.setName("Новый график");
+        XYChart.Series newSeries1 = new XYChart.Series();
+        newSeries1.setName("Новый график");
         //populating the series with data
         for (int i = 0; i < x.length; i ++) {
-            newSeries.getData().add(new XYChart.Data(x[i], newY.get(i)));
+            newSeries1.getData().add(new XYChart.Data(x[i], newY1.get(i)));
         }
 
-        lineChart.getData().addAll(series, newSeries);
+
+        XYChart.Series newSeries2 = new XYChart.Series();
+        newSeries2.setName("Точный график");
+        //populating the series with data
+        for (int i = 0; i < x.length; i ++) {
+            newSeries2.getData().add(new XYChart.Data(x[i], newY2.get(i)));
+        }
+
+        lineChart.getData().addAll(series, newSeries1, newSeries2);
 
         Scene scene  = new Scene(lineChart,800,600);
         stage.setScene(scene);

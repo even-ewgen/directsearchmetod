@@ -1,10 +1,9 @@
-import javafx.stage.Stage;
-
 import java.util.ArrayList;
 
 import static java.lang.Math.*;
+import static java.lang.Math.exp;
 
-public class ErrorsFunktion {
+public class AccurateErrorsFunktion {
     private String[] stage;
     //Задаем значения результатов экспериментов
     public static double[] allX = {1.14, 1.37, 1.89, 2.09, 2.45, 2.4, 2.73, 3.04, 3.19, 3.09, 3.05, 3.10, 3.34, 3.75, 4.19, 4.59};
@@ -31,7 +30,7 @@ public class ErrorsFunktion {
     //Задаем счетчик итераций
     private static int iterationCounter = 1;
 
-    public ErrorsFunktion(String[] stage) {
+    public AccurateErrorsFunktion(String[] stage) {
         this.stage = stage;
     }
 
@@ -75,7 +74,7 @@ public class ErrorsFunktion {
 
         for (double x : allX) {
             //float y = (float) (b0 + pow(x,2)*b1); //Это я экспериментирую
-            double y =(b0 + exp(x/*-sredX*/)*b1); ///Это я
+            double y =(b0 + exp(x - sredX)*b1); ///Это я
             //double y = (b0 + pow((x-sredX),2)*b1); //Это Катя
             //double y = (b0 + exp(b1 * (x))); //Это Леша и Оля
             newAllY.add(y);
@@ -85,8 +84,8 @@ public class ErrorsFunktion {
             System.out.println(i + ". " + allY[i] + " " + newAllY.get(i) + " Точность: " + abs(allY[i] - newAllY.get(i)));
         }
 
-/*        MakeGraph makeGrahp = new MakeGraph();
-        makeGrahp.work(stage);*/
+        MakeGraph makeGrahp = new MakeGraph();
+        makeGrahp.work(stage);
     }
 
     private static void errorFunktionResult() {
@@ -97,7 +96,7 @@ public class ErrorsFunktion {
         errorFunktion = 0;
         for (int i = 0; i < allX.length; i++) {
             //errorFunktion = (float) (errorFunktion + pow((allY[i] - (b0 + pow(allX[i],2)*b1)),2)); //Это я экспериментирую
-            errorFunktion = (errorFunktion + pow((allY[i] - (b0 + exp(allX[i] /*- sredX*/)*b1)),2)); //Это я
+            errorFunktion = (errorFunktion + pow((allY[i] - (b0 + exp(allX[i] - sredX)*b1)),2)); //Это я
             //errorFunktion = (errorFunktion + pow((allY[i] - (b0 + pow((allX[i] - sredX),2)*b1)),2)); //Это Катя
             //errorFunktion = (errorFunktion + pow((allY[i] - (b0 + exp(b1 *(allX[i])))),2)); //Это Леша
         }
