@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.css.Match;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -8,12 +9,17 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class MakeGraph extends Application {
+    private static DataContainer dataContainer;
+
+    public void getData(DataContainer dataContainer) {
+        this.dataContainer = dataContainer;
+    }
 
     @Override public void start(Stage stage) {
-        double x[] = ErrorsFunktion.allX;
-        double y[] = ErrorsFunktion.allY;
-        ArrayList<Double> newY1 = ErrorsFunktion.newAllY;
-        ArrayList<Double> newY2 = AccurateErrorsFunktion.newAllY;
+        double[] x = dataContainer.getAllX();
+        double[] y = dataContainer.getAllY();
+        ArrayList<Double> newY1 = dataContainer.getAllYFE();
+        ArrayList<Double> newY2 = dataContainer.getAllYAFE();
 
         stage.setTitle("Line Chart Sample");
         //defining the axes
