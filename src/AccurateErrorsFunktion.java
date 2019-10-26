@@ -4,11 +4,9 @@ import static java.lang.Math.*;
 import static java.lang.Math.exp;
 
 public class AccurateErrorsFunktion {
-    private DataContainer dataContainer;
     //Задаем значения результатов экспериментов
     private static double[] allX;
     private static double[] allY;
-
     private static ArrayList<Double> newAllAY = new ArrayList<>();
     private static double sredX; //Это для более точных значений, сейчас не реализовано. Простовычетать эту переменную их х в функции ошибок
     //Задаем значения для коэффициентов на первой итерации и приращение для них
@@ -23,6 +21,7 @@ public class AccurateErrorsFunktion {
     private static double oldErrorFunktion;
     //Задаем счетчик итераций
     private static int iterationCounter = 1;
+    private DataContainer dataContainer;
 
     public AccurateErrorsFunktion(DataContainer dataContainer) {
         this.dataContainer = dataContainer;
@@ -31,58 +30,13 @@ public class AccurateErrorsFunktion {
         sredX = dataContainer.getSredX();
     }
 
-    public void start() {
-        //Подготовка
-        errorFunktionResult();
-
-        //Нулевая итерация
-        iterationB0();
-        iterationB1();
-
-        //Пока не достигли удовлетворяющей точности повторяем действия
-        while (!(abs(oldErrorFunktion - errorFunktion) <= accuracy)) {
-            double preAccuracy = abs(oldErrorFunktion - errorFunktion);
-
-            //Последующие итерации
-            iterationB0();
-            iterationB1();
-            iterationCounter = iterationCounter + 1;
-            System.out.println("Всего итераций: " + iterationCounter);
-            System.out.println("Точность: " + abs(oldErrorFunktion - errorFunktion));
-
-            double postAccuracy = abs(oldErrorFunktion - errorFunktion);
-            System.out.println(postAccuracy + "   " + preAccuracy);
-            if (preAccuracy == postAccuracy) {
-                increment = increment/2;
-            }
-        }
-
-        System.out.println("Итог: ");
-        System.out.println("b0:                 " + b0);
-        System.out.println("b1:                 " + b1);
-        System.out.println("errorFunktion:      " + errorFunktion);
-        System.out.println("Точность:           " + (abs(oldErrorFunktion - errorFunktion)));
-        System.out.println("iterationCounter:   " + iterationCounter);
-
-        for (double x : allX) {
-            double y =(b0 + exp(x - sredX)*b1); ///Это я
-            newAllAY.add(y);
-        }
-
-        dataContainer.setAccurateErrorFunktion(errorFunktion);
-        dataContainer.setAccurateErrorFunktionB0(b0);
-        dataContainer.setAccurateErrorFunktionB1(b1);
-        dataContainer.setAllYAFE(newAllAY);
-
-    }
-
     private static void errorFunktionResult() {
         //Получаем значение для функции ошибок
         //Цикл реализует операцию суммирования
         oldErrorFunktion = errorFunktion; //значение на предыдущей итерации
         errorFunktion = 0;
         for (int i = 0; i < allX.length; i++) {
-            errorFunktion = (errorFunktion + pow((allY[i] - (b0 + exp(allX[i] - sredX)*b1)),2)); //Это я
+            errorFunktion = (errorFunktion + pow((allY[i] - (b0 + exp(allX[i] - sredX) * b1)), 2)); //Это я
         }
     }
 
@@ -166,5 +120,50 @@ public class AccurateErrorsFunktion {
                 System.out.println(b1);
             }
         }
+    }
+
+    public void start() {
+        //Подготовка
+        errorFunktionResult();
+
+        //Нулевая итерация
+        iterationB0();
+        iterationB1();
+
+        //Пока не достигли удовлетворяющей точности повторяем действия
+        while (!(abs(oldErrorFunktion - errorFunktion) <= accuracy)) {
+            double preAccuracy = abs(oldErrorFunktion - errorFunktion);
+
+            //Последующие итерации
+            iterationB0();
+            iterationB1();
+            iterationCounter = iterationCounter + 1;
+            System.out.println("Всего итераций: " + iterationCounter);
+            System.out.println("Точность: " + abs(oldErrorFunktion - errorFunktion));
+
+            double postAccuracy = abs(oldErrorFunktion - errorFunktion);
+            System.out.println(postAccuracy + "   " + preAccuracy);
+            if (preAccuracy == postAccuracy) {
+                increment = increment / 2;
+            }
+        }
+
+        System.out.println("Итог: ");
+        System.out.println("b0:                 " + b0);
+        System.out.println("b1:                 " + b1);
+        System.out.println("errorFunktion:      " + errorFunktion);
+        System.out.println("Точность:           " + (abs(oldErrorFunktion - errorFunktion)));
+        System.out.println("iterationCounter:   " + iterationCounter);
+
+        for (double x : allX) {
+            double y = (b0 + exp(x - sredX) * b1); ///Это я
+            newAllAY.add(y);
+        }
+
+        dataContainer.setAccurateErrorFunktion(errorFunktion);
+        dataContainer.setAccurateErrorFunktionB0(b0);
+        dataContainer.setAccurateErrorFunktionB1(b1);
+        dataContainer.setAllYAFE(newAllAY);
+
     }
 }

@@ -1,5 +1,4 @@
 import javafx.application.Application;
-import javafx.css.Match;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -15,7 +14,8 @@ public class MakeGraph extends Application {
         this.dataContainer = dataContainer;
     }
 
-    @Override public void start(Stage stage) {
+    @Override
+    public void start(Stage stage) {
         double[] x = dataContainer.getAllX();
         double[] y = dataContainer.getAllY();
         ArrayList<Double> newY1 = dataContainer.getAllYFE();
@@ -27,21 +27,21 @@ public class MakeGraph extends Application {
         final NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("X");
         //creating the chart
-        final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
+        final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
 
         lineChart.setTitle("Метод прямого поиска");
         //defining a series
         XYChart.Series series = new XYChart.Series();
         series.setName("Исходный график");
         //populating the series with data
-        for (int i = 0; i < x.length; i ++) {
+        for (int i = 0; i < x.length; i++) {
             series.getData().add(new XYChart.Data(x[i], y[i]));
         }
 
         XYChart.Series newSeries1 = new XYChart.Series();
         newSeries1.setName("Новый график");
         //populating the series with data
-        for (int i = 0; i < x.length; i ++) {
+        for (int i = 0; i < x.length; i++) {
             newSeries1.getData().add(new XYChart.Data(x[i], newY1.get(i)));
         }
 
@@ -49,13 +49,13 @@ public class MakeGraph extends Application {
         XYChart.Series newSeries2 = new XYChart.Series();
         newSeries2.setName("Точный график");
         //populating the series with data
-        for (int i = 0; i < x.length; i ++) {
+        for (int i = 0; i < x.length; i++) {
             newSeries2.getData().add(new XYChart.Data(x[i], newY2.get(i)));
         }
 
         lineChart.getData().addAll(series, newSeries1, newSeries2);
 
-        Scene scene  = new Scene(lineChart,800,600);
+        Scene scene = new Scene(lineChart, 800, 600);
         stage.setScene(scene);
 
         stage.show();

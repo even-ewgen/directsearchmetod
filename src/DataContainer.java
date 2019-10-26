@@ -2,9 +2,9 @@ import java.util.ArrayList;
 
 public class DataContainer {
     private double[] allX = {1.14, 1.37, 1.89, 2.09, 2.45, 2.4, 2.73, 3.04, 3.19, 3.09, 3.05, 3.10, 3.34, 3.75, 4.19, 4.59};
-    private double[] allY = {112,115,152,199,161,209,237,231,233,259,287,240,281,311,392,357};
-    private ArrayList<Double>  allYFE;
-    private ArrayList<Double>  allYAFE;
+    private double[] allY = {112, 115, 152, 199, 161, 209, 237, 231, 233, 259, 287, 240, 281, 311, 392, 357};
+    private ArrayList<Double> allYFE;
+    private ArrayList<Double> allYAFE;
 
     private Double errorFunktion;
     private Double errorFunktionB0;
@@ -23,34 +23,34 @@ public class DataContainer {
 
     public Double getSredX() {
         double summX = 0;
-        for (double x : allX)  summX = summX + x;
-        double sredX = summX/allX.length;
+        for (double x : allX) summX = summX + x;
+        double sredX = summX / allX.length;
         return sredX;
     }
 
     public Double getSredY() {
         double summY = 0;
-        for (double y : allY)  summY = summY + y;
-        double sredY = summY/allY.length;
+        for (double y : allY) summY = summY + y;
+        double sredY = summY / allY.length;
         return sredY;
     }
 
     public Double getSred(double[] allS) {
         double summS = 0;
-        for (double s : allY)  summS = summS + s;
-        double sredS = summS/allS.length;
+        for (double s : allY) summS = summS + s;
+        double sredS = summS / allS.length;
         return sredS;
     }
 
-    public ArrayList<Double>  getAllYFE() {
+    public ArrayList<Double> getAllYFE() {
         return allYFE;
     }
 
-    public void setAllYFE(ArrayList<Double>  allYFE) {
+    public void setAllYFE(ArrayList<Double> allYFE) {
         this.allYFE = allYFE;
     }
 
-    public ArrayList<Double>  getAllYAFE() {
+    public ArrayList<Double> getAllYAFE() {
         return allYAFE;
     }
 

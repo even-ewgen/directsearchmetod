@@ -19,10 +19,10 @@ public class Accuracy {
         double S2B0 = S2yi / allX.length;
 
         double summX2 = 0;
-        for(double x : allX) summX2 = summX2 + pow((x - dataContainer.getSredX()), 2);
+        for (double x : allX) summX2 = summX2 + pow((x - dataContainer.getSredX()), 2);
         double S2B1 = S2yi / summX2;
 
-        double SB0 = S2yi * sqrt( (1 / (double) allX.length) + pow(dataContainer.getSredX(), 2) / (summX2));
+        double SB0 = S2yi * sqrt((1 / (double) allX.length) + pow(dataContainer.getSredX(), 2) / (summX2));
 
 
         //double S = S2yi * sqrt( (1 / (double) allX.length) + + pow((x - dataContainer.getSredX()), 2) / (summX2));
