@@ -1,16 +1,16 @@
-import javafx.stage.Stage;
-
 import java.util.ArrayList;
 
 import static java.lang.Math.*;
+import static java.lang.Math.exp;
 
-public class ErrorsFunktion {
+public class AccurateErrorsFunktion {
     private DataContainer dataContainer;
     //Задаем значения результатов экспериментов
-    public static double[] allX;
-    public static double[] allY;
+    private static double[] allX;
+    private static double[] allY;
 
-    public static ArrayList<Double> newAllY = new ArrayList<>();
+    private static ArrayList<Double> newAllAY = new ArrayList<>();
+    private static double sredX; //Это для более точных значений, сейчас не реализовано. Простовычетать эту переменную их х в функции ошибок
     //Задаем значения для коэффициентов на первой итерации и приращение для них
     private static double b0 = 1;
     private static double b1 = 1;
@@ -24,10 +24,11 @@ public class ErrorsFunktion {
     //Задаем счетчик итераций
     private static int iterationCounter = 1;
 
-    public ErrorsFunktion(DataContainer dataContainer) {
+    public AccurateErrorsFunktion(DataContainer dataContainer) {
         this.dataContainer = dataContainer;
         allX = dataContainer.getAllX();
         allY = dataContainer.getAllY();
+        sredX = dataContainer.getSredX();
     }
 
     public void start() {
@@ -64,14 +65,15 @@ public class ErrorsFunktion {
         System.out.println("iterationCounter:   " + iterationCounter);
 
         for (double x : allX) {
-            double y =(b0 + exp(x)*b1); ///Это я
-            newAllY.add(y);
+            double y =(b0 + exp(x - sredX)*b1); ///Это я
+            newAllAY.add(y);
         }
 
-        dataContainer.setErrorFunktion(errorFunktion);
-        dataContainer.setErrorFunktionB0(b0);
-        dataContainer.setErrorFunktionB1(b1);
-        dataContainer.setAllYFE(newAllY);
+        dataContainer.setAccurateErrorFunktion(errorFunktion);
+        dataContainer.setAccurateErrorFunktionB0(b0);
+        dataContainer.setAccurateErrorFunktionB1(b1);
+        dataContainer.setAllYAFE(newAllAY);
+
     }
 
     private static void errorFunktionResult() {
@@ -80,7 +82,7 @@ public class ErrorsFunktion {
         oldErrorFunktion = errorFunktion; //значение на предыдущей итерации
         errorFunktion = 0;
         for (int i = 0; i < allX.length; i++) {
-            errorFunktion = (errorFunktion + pow((allY[i] - (b0 + exp(allX[i])*b1)),2)); //Это я
+            errorFunktion = (errorFunktion + pow((allY[i] - (b0 + exp(allX[i] - sredX)*b1)),2)); //Это я
         }
     }
 

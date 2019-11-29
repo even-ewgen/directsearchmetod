@@ -45,7 +45,15 @@ public class MakeGraph extends Application {
             newSeries1.getData().add(new XYChart.Data(x[i], newY1.get(i)));
         }
 
-        lineChart.getData().addAll(series, newSeries1);
+
+        XYChart.Series newSeries2 = new XYChart.Series();
+        newSeries2.setName("Точный график");
+        //populating the series with data
+        for (int i = 0; i < x.length; i ++) {
+            newSeries2.getData().add(new XYChart.Data(x[i], newY2.get(i)));
+        }
+
+        lineChart.getData().addAll(series, newSeries1, newSeries2);
 
         Scene scene  = new Scene(lineChart,800,600);
         stage.setScene(scene);
