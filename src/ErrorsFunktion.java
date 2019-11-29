@@ -56,7 +56,7 @@ public class ErrorsFunktion {
                 work = false;
             }
         }
-
+//
         System.out.println("Итог: ");
         System.out.println("b0:                 " + b0);
         System.out.println("b1:                 " + b1);
