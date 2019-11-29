@@ -8,10 +8,6 @@ public class Main {
         ErrorsFunktion errorsFunktion = new ErrorsFunktion(dataContainer);
         errorsFunktion.start();
 
-        AccurateErrorsFunktion accurateErrorsFunktion = new AccurateErrorsFunktion(dataContainer);
-        accurateErrorsFunktion.start();
-
-        System.out.println(dataContainer.getAllYAFE());
         System.out.println(dataContainer.getAllYFE());
         System.out.println(Arrays.toString(dataContainer.getAllY()));
 

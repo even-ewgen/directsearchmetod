@@ -31,28 +31,29 @@ public class ErrorsFunktion {
     }
 
     public void start() {
-        //Подготовка
-        errorFunktionResult();
-
-        //Нулевая итерация
-        iterationB0();
-        iterationB1();
-
         //Пока не достигли удовлетворяющей точности повторяем действия
-        while (!(abs(oldErrorFunktion - errorFunktion) <= accuracy)) {
+        boolean work = true;
+        while (work) {
             double preAccuracy = abs(oldErrorFunktion - errorFunktion);
+            errorFunktionResult();
 
             //Последующие итерации
             iterationB0();
             iterationB1();
             iterationCounter = iterationCounter + 1;
-            System.out.println("Всего итераций: " + iterationCounter);
-            System.out.println("Точность: " + abs(oldErrorFunktion - errorFunktion));
 
             double postAccuracy = abs(oldErrorFunktion - errorFunktion);
-            System.out.println(postAccuracy + "   " + preAccuracy);
+
+            System.out.println("b0:                 " + b0);
+            System.out.println("b1:                 " + b1);
+            System.out.println("Всего итераций: " + iterationCounter);
+            System.out.println("Точность: " + postAccuracy);
+
             if (preAccuracy == postAccuracy) {
-                increment = increment/2;
+                increment = increment/10;
+            }
+            if ((iterationCounter == 10000) || ((abs(oldErrorFunktion - errorFunktion) <= accuracy))) {
+                work = false;
             }
         }
 
@@ -64,7 +65,7 @@ public class ErrorsFunktion {
         System.out.println("iterationCounter:   " + iterationCounter);
 
         for (double x : allX) {
-            double y =(b0 + exp(x)*b1); ///Это я
+            double y =(b0 + (x)*b1); ///Это я
             newAllY.add(y);
         }
 
@@ -80,7 +81,7 @@ public class ErrorsFunktion {
         oldErrorFunktion = errorFunktion; //значение на предыдущей итерации
         errorFunktion = 0;
         for (int i = 0; i < allX.length; i++) {
-            errorFunktion = (errorFunktion + pow((allY[i] - (b0 + exp(allX[i])*b1)),2)); //Это я
+            errorFunktion = (errorFunktion + pow((allY[i] - (b0 + (allX[i])*b1)),2)); //Это я
         }
     }
 
@@ -97,30 +98,30 @@ public class ErrorsFunktion {
             System.out.println("errorFunktion:      " + errorFunktion);
             System.out.println("oldErrorFunktion:   " + oldErrorFunktion);
             //Все отлично, b0 остается измененным
-            System.out.println(b0);
+            System.out.println("b0 = " + b0);
 
         } else if (errorFunktion > oldErrorFunktion) {
             System.out.println("Значение больше чем старое: ");
             System.out.println("errorFunktion:      " + errorFunktion);
             System.out.println("oldErrorFunktion:   " + oldErrorFunktion);
-            b0 = b0 - increment;
+            b0 = boxForB0 - increment;
             errorFunktionResult();
             System.out.println(errorFunktion);
-            System.out.println(b0);
+            System.out.println("b0 = " + b0);
 
             if (errorFunktion < boxForPreIterationErrorFunktion) {
                 System.out.println("Значение меньше чем старое: ");
                 System.out.println("errorFunktion:      " + errorFunktion);
                 System.out.println("oldErrorFunktion:   " + boxForPreIterationErrorFunktion);
                 //Оставляем это значение
-                System.out.println(b0);
+                System.out.println("b0 = " + b0);
 
             } else if (errorFunktion > boxForPreIterationErrorFunktion) {
                 System.out.println("Значение больше чем старое: ");
                 System.out.println("errorFunktion:      " + errorFunktion);
                 System.out.println("oldErrorFunktion:   " + boxForPreIterationErrorFunktion);
                 b0 = boxForB0;
-                System.out.println(b0);
+                System.out.println("b0 = " + b0);
             }
         }
     }
@@ -128,7 +129,7 @@ public class ErrorsFunktion {
     private static void iterationB1() {
         System.out.println("Это второй коэффициент: ");
         double boxForPreIterationErrorFunktion = errorFunktion;
-        double boxForB0 = b1;
+        double boxForB1 = b1;
         b1 = b1 + increment;
         System.out.println(b1);
 
@@ -138,30 +139,30 @@ public class ErrorsFunktion {
             System.out.println("errorFunktion:      " + errorFunktion);
             System.out.println("oldErrorFunktion:   " + oldErrorFunktion);
             //Все отлично, b0 остается измененным
-            System.out.println(b1);
+            System.out.println("b1 = " + b1);
 
         } else if (errorFunktion > oldErrorFunktion) {
             System.out.println("Значение больше чем старое: ");
             System.out.println("errorFunktion:      " + errorFunktion);
             System.out.println("oldErrorFunktion:   " + oldErrorFunktion);
-            b1 = b1 - increment;
+            b1 = boxForB1 - increment;
             errorFunktionResult();
             System.out.println(errorFunktion);
-            System.out.println(b1);
+            System.out.println("b1 = " + b1);
 
             if (errorFunktion < boxForPreIterationErrorFunktion) {
                 System.out.println("Значение меньше чем старое: ");
                 System.out.println("errorFunktion:      " + errorFunktion);
                 System.out.println("oldErrorFunktion:   " + boxForPreIterationErrorFunktion);
                 //Оставляем это значение
-                System.out.println(b1);
+                System.out.println("b1 = " + b1);
 
             } else if (errorFunktion > boxForPreIterationErrorFunktion) {
                 System.out.println("Значение больше чем старое: ");
                 System.out.println("errorFunktion:      " + errorFunktion);
                 System.out.println("oldErrorFunktion:   " + boxForPreIterationErrorFunktion);
-                b1 = boxForB0;
-                System.out.println(b1);
+                b1 = boxForB1;
+                System.out.println("b1 = " + b1);
             }
         }
     }
