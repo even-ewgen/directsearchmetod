@@ -39,4 +39,10 @@ public class DataContainer {
     public void setErrorFunktion(Double errorFunktion) {
         this.errorFunktion = errorFunktion;
     }
+
+    public void printYAndNewY(){
+        for (int i = 0; i < allY.length; i++) {
+            System.out.printf("Y-заданное -> %f  %f <- Y-полученное\n", allY[i], allYFE.get(i));
+        }
+    }
 }

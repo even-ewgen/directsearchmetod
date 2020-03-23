@@ -53,7 +53,7 @@ public class MakeGraph extends Application {
         stage.setScene(scene);
 
         stage.show();
-    }//
+    }
 
     public void work(String[] args) {
         launch(args);

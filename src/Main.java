@@ -2,8 +2,6 @@ import calculations.ErrorsFunktion;
 import containers.DataContainer;
 import graph.MakeGraph;
 
-import java.util.Arrays;
-
 public class Main {
 
     public static void main(String[] arg) {
@@ -12,8 +10,7 @@ public class Main {
         ErrorsFunktion errorsFunktion = new ErrorsFunktion(dataContainer);
         errorsFunktion.start();
 
-        System.out.println(dataContainer.getAllYFE());
-        System.out.println(Arrays.toString(dataContainer.getAllY()));
+        dataContainer.printYAndNewY();
 
         MakeGraph makeGrahp = new MakeGraph();
         makeGrahp.getData(dataContainer);
