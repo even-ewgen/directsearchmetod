@@ -1,5 +1,4 @@
 import javafx.application.Application;
-import javafx.css.Match;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -15,7 +14,8 @@ public class MakeGraph extends Application {
         this.dataContainer = dataContainer;
     }
 
-    @Override public void start(Stage stage) {
+    @Override
+    public void start(Stage stage) {
         double[] x = dataContainer.getAllX();
         double[] y = dataContainer.getAllY();
         ArrayList<Double> newY1 = dataContainer.getAllYFE();

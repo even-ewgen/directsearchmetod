@@ -35,20 +35,15 @@ public class ErrorsFunktion {
         boolean work = true;
         while (work) {
             double preAccuracy = abs(oldErrorFunktion - errorFunktion);
-            errorFunktionResult();
+            errorFunktionResult(b0, b1);
 
             //Последующие итерации
-            iterationB0();
-            iterationB1();
+            b0 = iterationB0(b0, 1);
+            b1 = iterationB0(b1, 2);
+            //iterationB1();
             iterationCounter = iterationCounter + 1;
 
             double postAccuracy = abs(oldErrorFunktion - errorFunktion);
-
-            System.out.println("b0:                 " + b0);
-            System.out.println("b1:                 " + b1);
-            System.out.println("Всего итераций: " + iterationCounter);
-            System.out.println("Точность: " + postAccuracy);
-
             if (preAccuracy == postAccuracy) {
                 increment = increment/10;
             }
@@ -56,7 +51,7 @@ public class ErrorsFunktion {
                 work = false;
             }
         }
-//
+
         System.out.println("Итог: ");
         System.out.println("b0:                 " + b0);
         System.out.println("b1:                 " + b1);
@@ -75,95 +70,33 @@ public class ErrorsFunktion {
         dataContainer.setAllYFE(newAllY);
     }
 
-    private static void errorFunktionResult() {
+    private static void errorFunktionResult(double b0, double b1) {
         //Получаем значение для функции ошибок
         //Цикл реализует операцию суммирования
         oldErrorFunktion = errorFunktion; //значение на предыдущей итерации
         errorFunktion = 0;
         for (int i = 0; i < allX.length; i++) {
-            errorFunktion = (errorFunktion + pow((allY[i] - (b0 + (allX[i])*b1)),2)); //Это я
+            errorFunktion = (errorFunktion + pow((allY[i] - (b0 + (allX[i])*b1)),2));
         }
     }
 
-    private static void iterationB0() {
-        System.out.println("Это первый коэффициент: ");
+    private Double iterationB0(double b, int number) {
+        //System.out.println("Это первый коэффициент: ");
         double boxForPreIterationErrorFunktion = errorFunktion;
-        double boxForB0 = b0;
-        b0 = b0 + increment;
-        System.out.println(b0);
+        double boxForB0 = b;
+        b = b + increment;
 
-        errorFunktionResult(); //новое значение
-        if (errorFunktion < oldErrorFunktion) {
-            System.out.println("Значение меньше чем старое: ");
-            System.out.println("errorFunktion:      " + errorFunktion);
-            System.out.println("oldErrorFunktion:   " + oldErrorFunktion);
-            //Все отлично, b0 остается измененным
-            System.out.println("b0 = " + b0);
+        if (number == 1) errorFunktionResult(b, b1); //новое значение
+        else errorFunktionResult(b0, b);
 
-        } else if (errorFunktion > oldErrorFunktion) {
-            System.out.println("Значение больше чем старое: ");
-            System.out.println("errorFunktion:      " + errorFunktion);
-            System.out.println("oldErrorFunktion:   " + oldErrorFunktion);
-            b0 = boxForB0 - increment;
-            errorFunktionResult();
-            System.out.println(errorFunktion);
-            System.out.println("b0 = " + b0);
+        if (errorFunktion > oldErrorFunktion) {
+            b = boxForB0 - increment;
 
-            if (errorFunktion < boxForPreIterationErrorFunktion) {
-                System.out.println("Значение меньше чем старое: ");
-                System.out.println("errorFunktion:      " + errorFunktion);
-                System.out.println("oldErrorFunktion:   " + boxForPreIterationErrorFunktion);
-                //Оставляем это значение
-                System.out.println("b0 = " + b0);
+            if (number == 1) errorFunktionResult(b, b1); //новое значение
+            else errorFunktionResult(b0, b);
 
-            } else if (errorFunktion > boxForPreIterationErrorFunktion) {
-                System.out.println("Значение больше чем старое: ");
-                System.out.println("errorFunktion:      " + errorFunktion);
-                System.out.println("oldErrorFunktion:   " + boxForPreIterationErrorFunktion);
-                b0 = boxForB0;
-                System.out.println("b0 = " + b0);
-            }
-        }
-    }
-
-    private static void iterationB1() {
-        System.out.println("Это второй коэффициент: ");
-        double boxForPreIterationErrorFunktion = errorFunktion;
-        double boxForB1 = b1;
-        b1 = b1 + increment;
-        System.out.println(b1);
-
-        errorFunktionResult(); //новое значение
-        if (errorFunktion < oldErrorFunktion) {
-            System.out.println("Значение меньше чем старое: ");
-            System.out.println("errorFunktion:      " + errorFunktion);
-            System.out.println("oldErrorFunktion:   " + oldErrorFunktion);
-            //Все отлично, b0 остается измененным
-            System.out.println("b1 = " + b1);
-
-        } else if (errorFunktion > oldErrorFunktion) {
-            System.out.println("Значение больше чем старое: ");
-            System.out.println("errorFunktion:      " + errorFunktion);
-            System.out.println("oldErrorFunktion:   " + oldErrorFunktion);
-            b1 = boxForB1 - increment;
-            errorFunktionResult();
-            System.out.println(errorFunktion);
-            System.out.println("b1 = " + b1);
-
-            if (errorFunktion < boxForPreIterationErrorFunktion) {
-                System.out.println("Значение меньше чем старое: ");
-                System.out.println("errorFunktion:      " + errorFunktion);
-                System.out.println("oldErrorFunktion:   " + boxForPreIterationErrorFunktion);
-                //Оставляем это значение
-                System.out.println("b1 = " + b1);
-
-            } else if (errorFunktion > boxForPreIterationErrorFunktion) {
-                System.out.println("Значение больше чем старое: ");
-                System.out.println("errorFunktion:      " + errorFunktion);
-                System.out.println("oldErrorFunktion:   " + boxForPreIterationErrorFunktion);
-                b1 = boxForB1;
-                System.out.println("b1 = " + b1);
-            }
-        }
+            if (errorFunktion > boxForPreIterationErrorFunktion) b = boxForB0; //иначе b не меняется
+        } //иначе b не меняется
+        return b;
     }
 }

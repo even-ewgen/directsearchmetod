@@ -4,12 +4,10 @@ import static java.lang.Math.sqrt;
 public class Accuracy {
     private DataContainer dataContainer;
     private double[] allX;
-    private double[] allY;
 
     public Accuracy(DataContainer dataContainer) {
         this.dataContainer = dataContainer;
         allX = dataContainer.getAllX();
-        allY = dataContainer.getAllY();
     }
 
     public void start() {
@@ -24,16 +22,10 @@ public class Accuracy {
 
         double SB0 = S2yi * sqrt((1 / (double) allX.length) + pow(dataContainer.getSredX(), 2) / (summX2));
 
-
-        //double S = S2yi * sqrt( (1 / (double) allX.length) + + pow((x - dataContainer.getSredX()), 2) / (summX2));
-
-
         System.out.println("S2yi = " + S2yi);
         System.out.println("rS2yi = " + rS2yi);
         System.out.println("S2B0 = " + S2B0);
         System.out.println("S2B1 = " + S2B1);
         System.out.println("SB0 = " + SB0);
-        //System.out.println("SB0 = " + SB0);
-
     }
 }
