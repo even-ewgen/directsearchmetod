@@ -11,19 +11,14 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class MakeGraph extends Application {
-    private static DataContainer dataContainer;
-
-    public void getData(DataContainer dataContainer) {
-        this.dataContainer = dataContainer;
-    }
 
     @Override
     public void start(Stage stage) {
-        double[] x = dataContainer.getAllX();
-        double[] y = dataContainer.getAllY();
-        ArrayList<Double> newY1 = dataContainer.getAllYFE();
+        double[] x = DataContainer.getAllX();
+        double[] y = DataContainer.getAllY();
+        ArrayList<Double> newY1 = DataContainer.getAllYFE();
 
-        stage.setTitle("Line Chart Sample");
+        stage.setTitle("Метод прямого поиска");
         //defining the axes
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
@@ -34,20 +29,20 @@ public class MakeGraph extends Application {
         lineChart.setTitle("Метод прямого поиска");
         //defining a series
         XYChart.Series series = new XYChart.Series();
-        series.setName("Исходный график");
+        series.setName("Исходные данные");
         //populating the series with data
         for (int i = 0; i < x.length; i ++) {
             series.getData().add(new XYChart.Data(x[i], y[i]));
         }
 
-        XYChart.Series newSeries1 = new XYChart.Series();
-        newSeries1.setName("Новый график");
+        XYChart.Series newSeries = new XYChart.Series();
+        newSeries.setName("Расчетные данные");
         //populating the series with data
         for (int i = 0; i < x.length; i ++) {
-            newSeries1.getData().add(new XYChart.Data(x[i], newY1.get(i)));
+            newSeries.getData().add(new XYChart.Data(x[i], newY1.get(i)));
         }
 
-        lineChart.getData().addAll(series, newSeries1);
+        lineChart.getData().addAll(series, newSeries);
 
         Scene scene  = new Scene(lineChart,800,600);
         stage.setScene(scene);

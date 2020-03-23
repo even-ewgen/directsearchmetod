@@ -13,7 +13,6 @@ public class Main {
         dataContainer.printYAndNewY();
 
         MakeGraph makeGrahp = new MakeGraph();
-        makeGrahp.getData(dataContainer);
         makeGrahp.work(arg);
     }
 }

@@ -1,9 +1,7 @@
 package calculations;
 
 import containers.DataContainer;
-
 import java.util.ArrayList;
-
 import static java.lang.Math.*;
 
 public class ErrorsFunktion {
@@ -44,12 +42,8 @@ public class ErrorsFunktion {
             iterationCounter = iterationCounter + 1;
 
             double postAccuracy = abs(oldErrorFunktion - errorFunktion);
-            if (preAccuracy == postAccuracy) {
-                increment = increment/10;
-            }
-            if ((iterationCounter == 10000) || ((abs(oldErrorFunktion - errorFunktion) <= accuracy))) {
-                work = false;
-            }
+            if (preAccuracy == postAccuracy) increment = increment/10;
+            if ((iterationCounter == 10000) || ((abs(oldErrorFunktion - errorFunktion) <= accuracy))) work = false;
         }
 
         System.out.println("Первый коэффициент: " + b0);
@@ -62,8 +56,6 @@ public class ErrorsFunktion {
             double y =(b0 + (x)*b1);
             newAllY.add(y);
         }
-
-        dataContainer.setErrorFunktion(errorFunktion);
         dataContainer.setAllYFE(newAllY);
     }
 
@@ -72,9 +64,9 @@ public class ErrorsFunktion {
         //Цикл реализует операцию суммирования
         oldErrorFunktion = errorFunktion; //значение на предыдущей итерации
         errorFunktion = 0;
-        for (int i = 0; i < allX.length; i++) {
+        for (int i = 0; i < allX.length; i++)
             errorFunktion = (errorFunktion + pow((allY[i] - (b0 + (allX[i])*b1)),2));
-        }
+
     }
 
     private Double iterationB0(double b, int number) {
