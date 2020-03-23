@@ -52,7 +52,6 @@ public class ErrorsFunktion {
             }
         }
 
-        System.out.println("Итог:");
         System.out.println("Первый коэффициент: " + b0);
         System.out.println("Второй коэффициент: " + b1);
         System.out.println("Значение функции ошибок: " + errorFunktion);

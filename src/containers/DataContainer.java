@@ -41,6 +41,7 @@ public class DataContainer {
     }
 
     public void printYAndNewY(){
+        System.out.printf("%15sСравнение значений Y\n", "");
         for (int i = 0; i < allY.length; i++) {
             System.out.printf("Y-заданное -> %f  %f <- Y-полученное\n", allY[i], allYFE.get(i));
         }
