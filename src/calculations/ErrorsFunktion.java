@@ -1,4 +1,6 @@
-import javafx.stage.Stage;
+package calculations;
+
+import containers.DataContainer;
 
 import java.util.ArrayList;
 
@@ -14,7 +16,6 @@ public class ErrorsFunktion {
     //Задаем значения для коэффициентов на первой итерации и приращение для них
     private static double b0 = 1;
     private static double b1 = 1;
-    // private static float b2 = 1;
     private static double increment = 0.1;
     //Точность, с которой будем сравнивать
     private static double accuracy = 0.001;
@@ -40,7 +41,6 @@ public class ErrorsFunktion {
             //Последующие итерации
             b0 = iterationB0(b0, 1);
             b1 = iterationB0(b1, 2);
-            //iterationB1();
             iterationCounter = iterationCounter + 1;
 
             double postAccuracy = abs(oldErrorFunktion - errorFunktion);
@@ -52,21 +52,19 @@ public class ErrorsFunktion {
             }
         }
 
-        System.out.println("Итог: ");
-        System.out.println("b0:                 " + b0);
-        System.out.println("b1:                 " + b1);
-        System.out.println("errorFunktion:      " + errorFunktion);
-        System.out.println("Точность:           " + (abs(oldErrorFunktion - errorFunktion)));
-        System.out.println("iterationCounter:   " + iterationCounter);
+        System.out.println("Итог:");
+        System.out.println("Первый коэффициент: " + b0);
+        System.out.println("Второй коэффициент: " + b1);
+        System.out.println("Значение функции ошибок: " + errorFunktion);
+        System.out.println("Точность: " + (abs(oldErrorFunktion - errorFunktion)));
+        System.out.println("Количество итераций: " + iterationCounter);
 
         for (double x : allX) {
-            double y =(b0 + (x)*b1); ///Это я
+            double y =(b0 + (x)*b1);
             newAllY.add(y);
         }
 
         dataContainer.setErrorFunktion(errorFunktion);
-        dataContainer.setErrorFunktionB0(b0);
-        dataContainer.setErrorFunktionB1(b1);
         dataContainer.setAllYFE(newAllY);
     }
 
@@ -81,7 +79,6 @@ public class ErrorsFunktion {
     }
 
     private Double iterationB0(double b, int number) {
-        //System.out.println("Это первый коэффициент: ");
         double boxForPreIterationErrorFunktion = errorFunktion;
         double boxForB0 = b;
         b = b + increment;

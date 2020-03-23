@@ -1,3 +1,7 @@
+import calculations.ErrorsFunktion;
+import containers.DataContainer;
+import graph.MakeGraph;
+
 import java.util.Arrays;
 
 public class Main {

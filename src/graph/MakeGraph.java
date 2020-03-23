@@ -1,3 +1,6 @@
+package graph;
+
+import containers.DataContainer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
@@ -19,7 +22,6 @@ public class MakeGraph extends Application {
         double[] x = dataContainer.getAllX();
         double[] y = dataContainer.getAllY();
         ArrayList<Double> newY1 = dataContainer.getAllYFE();
-        ArrayList<Double> newY2 = dataContainer.getAllYAFE();
 
         stage.setTitle("Line Chart Sample");
         //defining the axes
